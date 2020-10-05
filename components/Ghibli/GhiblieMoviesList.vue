@@ -4,9 +4,12 @@
   <div v-else>
     <h1>Movies</h1>
     <ul>
-      <li v-for="movie of movies" :key="movie.id">{{ movie.title }}</li>
+      <li v-for="movie of movies" :key="movie.id">
+        <nuxt-link :to="{ path: '/ghibli/' + movie.id }">{{
+          movie.title
+        }}</nuxt-link>
+      </li>
     </ul>
-    <button @click="$fetch">Refresh</button>
   </div>
 </template>
 
