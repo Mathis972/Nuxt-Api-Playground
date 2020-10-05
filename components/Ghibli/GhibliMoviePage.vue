@@ -13,17 +13,18 @@
       >
       <p style="max-width: 800px">{{ movie.description }}</p>
       <div id="details" style="margin-bottom: 40px">
-        <dl style="display: table-row">
-          <dt class="subs">Genre</dt>
-          <dd style="display: table-cell">Action ou vérité</dd>
-        </dl>
-        <dl style="display: table-row">
-          <dt class="subs">sous-Titres <v-icon>mdi-subtitles</v-icon></dt>
-          <dd style="display: table-cell">Anglais, Français</dd>
-        </dl>
-        <dl style="display: table-row">
-          <dt class="subs">Audio 🎧</dt>
-          <dd style="display: table-cell">Japonais, Anglais</dd>
+        <dl
+          v-for="movieDetail in movieDetails"
+          :key="movieDetail.category"
+          style="display: table-row"
+        >
+          <dt class="subs" v-if="movieDetail.icon">
+            {{ movieDetail.category }} <v-icon>{{ movieDetail.icon }}</v-icon>
+          </dt>
+          <dt class="subs" v-else>
+            {{ movieDetail.category }}
+          </dt>
+          <dd style="display: table-cell">{{ movieDetail.text }}</dd>
         </dl>
       </div>
       <v-btn elevation="2" fab color="secondary" @click="snackbar = true">
@@ -48,6 +49,11 @@ export default {
   props: ["movie"],
   data: () => ({
     snackbar: false,
+    movieDetails: [
+      { category: "Genre", text: "Action, Animation" },
+      { category: "Subtitles", text: "English, French", icon: "mdi-subtitles" },
+      { category: "Audio 🎧", text: "Japanese, English" },
+    ],
     text: "This is not an actual player 👏",
   }),
 };
